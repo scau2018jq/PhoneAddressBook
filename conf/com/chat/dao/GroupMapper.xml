@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chat.dao.GroupMapper">
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"></cache>
+	<cache eviction="FIFO" flushInterval="60000" readOnly="false" size="1024"></cache>
+
+
+	<resultMap type="com.chat.bean.group" id="Group">
+		<id column="gID" property="gID"/>
+		<!-- 定义普通列封装规则 -->
+		<result column="groupn" property="groupn"/>
+	</resultMap>
+
+	<!-- public List<group> selectgroup(); -->
+	<select id="selectgroup" resultMap="Group">
+		SELECT * FROM `chatpro`.`group` ORDER BY gID;
+	</select>
+
+	<!-- public group addgroup(); -->
+	<insert id="addgroup">
+		INSERT INTO `chatpro`.`group` (`groupn`) VALUES(#{groupn});
+	</insert>
+
+	<!-- public void deletegroup(); -->
+	<delete id="deletegroup" parameterType="com.chat.bean.group">
+		DELETE FROM `group` WHERE `groupn` = #{groupn};
+	</delete>
+
+</mapper>

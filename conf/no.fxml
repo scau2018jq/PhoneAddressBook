@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="156.0" prefWidth="304.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chat.service.FourController">
+   <children>
+      <Label fx:id="labeladdno" layoutX="98.0" layoutY="43.0" text="添加失败！！">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="no" layoutX="117.0" layoutY="87.0" mnemonicParsing="false" onAction="#closeThis" text="确 定" />
+   </children>
+</AnchorPane>

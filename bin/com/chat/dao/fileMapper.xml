@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chat.dao.fileMapper">
+
+<!-- 	public void savefile1(fileopen fileopen1); -->
+	<select id="savefile1">
+		SELECT * FROM linkman INTO OUTFILE #{filepath} CHARACTER SET utf8
+		FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '' LINES TERMINATED BY '\n';
+	</select>
+
+
+<!-- 	public void openfile1(fileopen fileopen1); -->
+	<insert id="openfile1">
+		LOAD DATA LOCAL INFILE #{filepath}
+		INTO TABLE `linkman` CHARACTER SET utf8
+		FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '' LINES TERMINATED BY '\n';
+	</insert>
+</mapper>

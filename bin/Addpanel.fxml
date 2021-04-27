@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="441.0" prefWidth="384.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chat.service.AddController">
+   <children>
+      <Pane layoutX="4.0" prefHeight="441.0" prefWidth="384.0">
+         <children>
+            <Label layoutX="41.0" layoutY="65.0" text="姓名：" />
+            <Label layoutX="231.0" layoutY="65.0" text="性别：" />
+            <Label layoutX="41.0" layoutY="112.0" text="手机：" />
+            <Label layoutX="41.0" layoutY="159.0" text="QQ:" />
+            <Label layoutX="40.0" layoutY="203.0" text="邮箱：" />
+            <Label layoutX="40.0" layoutY="250.0" text="生日:" />
+            <Label layoutX="41.0" layoutY="299.0" text="分组:" />
+            <Button fx:id="addyes" layoutX="92.0" layoutY="361.0" mnemonicParsing="false" onAction="#openThrid" prefHeight="30.0" prefWidth="58.0" text="确 定" />
+            <Button fx:id="addno" layoutX="218.0" layoutY="361.0" mnemonicParsing="false" text="取 消" />
+            <TextField fx:id="addname" layoutX="91.0" layoutY="60.0" prefHeight="30.0" prefWidth="130.0" promptText="姓名*" />
+            <TextField fx:id="addtele" layoutX="91.0" layoutY="108.0" prefHeight="30.0" prefWidth="196.0" promptText="手机*" />
+            <TextField fx:id="addqq" layoutX="88.0" layoutY="156.0" promptText="QQ" />
+            <TextField fx:id="addemail" layoutX="88.0" layoutY="199.0" promptText="邮箱" />
+            <ComboBox fx:id="addgroup" layoutX="88.0" layoutY="294.0" prefWidth="150.0" />
+            <ComboBox fx:id="addsex" layoutX="272.0" layoutY="60.0" prefHeight="30.0" prefWidth="91.0" />
+            <DatePicker fx:id="addday" layoutX="88.0" layoutY="245.0" promptText="0000-00-00" />
+            <Label layoutX="36.0" layoutY="23.0" text="*不能为空" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chat.dao.LinkManMapper">
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache"></cache>
+	<cache eviction="FIFO" flushInterval="50000" readOnly="false" size="10000"></cache>
+	<!--
+	eviction:缓存的回收策略：
+		• LRU – 最近最少使用的：移除最长时间不被使用的对象。
+		• FIFO – 先进先出：按对象进入缓存的顺序来移除它们。
+		• SOFT – 软引用：移除基于垃圾回收器状态和软引用规则的对象。
+		• WEAK – 弱引用：更积极地移除基于垃圾收集器状态和弱引用规则的对象。
+		• 默认的是 LRU。
+	flushInterval：缓存刷新间隔
+		缓存多长时间清空一次，默认不清空，设置一个毫秒值
+	readOnly:是否只读：
+		true：只读；mybatis认为所有从缓存中获取数据的操作都是只读操作，不会修改数据。
+				 mybatis为了加快获取速度，直接就会将数据在缓存中的引用交给用户。不安全，速度快
+		false：非只读：mybatis觉得获取的数据可能会被修改。
+				mybatis会利用序列化&反序列的技术克隆一份新的数据给你。安全，速度慢
+	size：缓存存放多少元素；
+	type=""：指定自定义缓存的全类名；
+			实现Cache接口即可；
+	-->
+
+
+	<!--自定义某个javaBean的封装规则
+	type：自定义规则的Java类型
+	id:唯一id方便引用
+	  -->
+	<resultMap type="com.chat.bean.LinkMan" id="LinkMan">
+		<!--指定主键列的封装规则
+		id定义主键会底层有优化；
+		column：指定哪一列
+		property：指定对应的javaBean属性
+		private int ID = 0;
+    private String sex = null;
+    private String name = null;
+    private String telephone = null;
+    private String QQ = null;
+    private String email = null;
+    private String birthday = null;
+    private String Fname = null;
+    private int SortID = 0;
+    private String group = null;
+		  -->
+		<id column="ID" property="ID"/>
+		<!-- 定义普通列封装规则 -->
+		<result column="sex" property="sex"/>
+		<!-- 其他不指定的列会自动封装：我们只要写resultMap就把全部的映射规则都写上。 -->
+		<result column="name" property="name"/>
+		<result column="telephone" property="telephone"/>
+		<result column="QQ" property="QQ"/>
+		<result column="email" property="email"/>
+		<result column="birthday" property="birthday"/>
+		<result column="Fname" property="Fname"/>
+		<result column="SortID" property="SortID"/>
+		<result column="group" property="group"/>
+	</resultMap>
+
+
+	<!-- resultMap:自定义结果集映射规则；  -->
+	<!-- public List<LinkMan> selectall();-->
+	<select id="selectall"  resultMap="LinkMan">
+		select * from linkman;
+	</select>
+
+
+	<!-- 	public List<LinkMan> selectbyname(LinkMan linkman); -->
+	<select id="selectbyname" resultMap="LinkMan">
+		SELECT * FROM linkman where name like CONCAT(CONCAT('%',#{name}),'%') or name
+		like CONCAT('%',#{name}) or name like CONCAT(#{name},'%');
+	</select>
+
+	<!--
+	public List<LinkMan> selectallngro(); -->
+	<select id="selectallngro" resultMap="LinkMan">
+		SELECT * FROM linkman WHERE `group` IS NULL;
+	</select>
+
+	<!-- public List<LinkMan> selectbytele(LinkMan linkman); -->
+	<select id="selectbytele" resultMap="LinkMan">
+		SELECT * FROM linkman where telephone like CONCAT(CONCAT('%',#{telephone}),'%')
+		or telephone like CONCAT('%',#{telephone}) or telephone like CONCAT(#{telephone},'%');
+	</select>
+
+
+	<!-- public void deleteone(LinkMan linkman);-->
+	<delete id="deleteone">
+		DELETE FROM linkman WHERE `ID` = #{ID};
+	</delete>
+
+
+	<!-- public void insertone(LinkMan linkman); -->
+	<insert id="insertone">
+		INSERT INTO `chatpro`.`linkman` (`name`,`sex`,`telephone`,`QQ`,`email`,`birthday`,`Fname`,
+		`SortID`,`group`) VALUES(#{name},#{sex},#{telephone},#{QQ},#{email},#{birthday},#{Fname},#{SortID},
+		#{group}) ;
+	</insert>
+
+
+	<!-- public void updateone(LinkMan linkman); -->
+	<!-- <update id="updateone" >
+		UPDATE linkman SET `name`=#{name},`sex`=#{sex},`telephone`=#{telephone},`QQ`=#{QQ},
+		`email`=#{email},`birthday`=#{birthday},`Fname`=#{Fname},`SortID`=#{SortID},`group`=#{group}
+		WHERE `name` = #{name};
+	</update> -->
+
+	<!-- public List<LinkMan> selectbygro();//按分组来搜索 -->
+	<select id="selectbygro" resultMap="LinkMan">
+		SELECT * FROM linkman WHERE `group` = #{group};
+	</select>
+
+
+	<!-- 	public void updateonename(LinkMan linkman); -->
+	<update id="updateonename">
+		UPDATE linkman SET `name`=#{name}
+		WHERE `ID` = #{ID};
+	</update>
+
+	<!-- public void updateonephone(LinkMan linkman);// 修改联系人 -->
+	<update id="updateonephone" >
+		UPDATE linkman SET `telephone`=#{telephone}
+		WHERE `ID` = #{ID};
+	</update>
+
+	<!-- public void updateonenameqq(LinkMan linkman);// 修改联系人 -->
+	<update id="updateonenameqq" >
+		UPDATE linkman SET `QQ`=#{QQ}
+		WHERE `ID` = #{ID};
+	</update>
+
+	<!-- public void updateoneemail(LinkMan linkman);// 修改联系人 -->
+	<update id="updateoneemail" >
+		UPDATE linkman SET `email`=#{email}
+		WHERE `ID` = #{ID};
+	</update>
+
+	<!-- public void updateonenamesex(LinkMan linkman);// 修改联系人 -->
+	<update id="updateonenamesex" >
+		UPDATE linkman SET `sex`=#{sex}
+		WHERE `ID` = #{ID};
+	</update>
+
+	<!-- public void updateonebirth(LinkMan linkman);// 修改联系人 -->
+	<update id="updateonebirth" >
+		UPDATE linkman SET `birthday`=#{birthday}
+		WHERE `ID` = #{ID};
+	</update>
+
+	<!-- public void updateonenamegroup(LinkMan linkman);// 修改联系人 -->
+	<update id="updateonenamegroup" >
+		UPDATE linkman SET `group`=#{group}
+		WHERE `ID` = #{ID};
+	</update>
+
+</mapper>
